@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: "3"
+services:
+    api:
+        env_file: .env
+        build:
+            context: ./api/
+        ports:
+            - "3000:3000"
+            # env_file: ./api/.env # TODO - uncomment this to auto-load your .env file!
+        environment:
+            - NODE_ENV=development
+            - CHOKIDAR_USEPOLLING=true
+    postgres:
+        image: postgres:11.2-alpine
+        environment:
+            POSTGRES_PASSWORD: postgres
