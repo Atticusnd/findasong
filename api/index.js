@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import controllers from './controllers/index.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const port = 3000;

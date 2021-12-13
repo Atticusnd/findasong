@@ -1,5 +1,5 @@
 import express from 'express';
-import { sign } from '../lib/jwt.js';
+import { sign } from '../../lib/jwt.js';
 const routes = express.Router();
 
 routes.get('/:id',(req,res) => {
