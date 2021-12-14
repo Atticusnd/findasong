@@ -1,9 +1,9 @@
 
 import React, {useState, useEffect} from 'react'
-import axios from 'axios';
+import Artist from './Artist/Artist.js';
 
 const Search = () => {
-    const [songsData, setSongsData] = useState({});
+    const [songsData, setSongsData] = useState([]);
     const [term, setTerm] = useState({});
 
     const getToken = () => {
@@ -12,21 +12,32 @@ const Search = () => {
         return userToken?.token
     };
 
-    const searchAPI = () => {
+    const searchAPI = async () => {
         console.log('entra');
-        const token = `Bearer ${getToken()}`;
-        console.log(token);
-        axios({
-                url: 'http://localhost:3000/songs',
-                method: 'GET'
-                // headers: {
-                //     'Authorization': token,
-                //   },
-                // method: "POST",
-                // body: {term: 'Mac Miller'}
-            }).then(res => console.log(res))
-            .catch(error => console.log(error));       
-        console.log('finalizo');
+        try {
+            const token = `Bearer ${getToken()}`;
+            const response = await fetch('http://localhost:3000/songs/',{
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json'
+                },
+                  method: "POST",
+                body: JSON.stringify({term: term | ''})
+            });
+            const json = await response.json();
+            console.log('---------------------');
+            console.log('json');
+            console.log(json);
+            const { artistData } = json;
+            console.log('artistData');
+            console.log(artistData);
+            console.log(Array.isArray(artistData));
+            console.log('---------------------');
+            setSongsData(...artistData);
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
     return(
         <><h2>Search</h2><form>
@@ -35,14 +46,18 @@ const Search = () => {
                 <input type="text" onChange={e => setTerm(e.target.value)}/>
             </label>
             <div>
-                <button type="submit" onClick={searchAPI}>Submit</button>
+                <button type="button" onClick={searchAPI}>Submit</button>
             </div>
         </form>
-        {/* <ul>
-          {songsData.artistData.map(artist => {
+        {songsData.map(artist => {
+            console.log(artist);
             return <li key={`name-${artist.name}`}>{artist.name}</li>
-          })}
-        </ul> */}
+        })}
+{/*         
+        { songsData
+            ? console.log(Array.isArray(songsData))
+            : ''
+        } */}
         </>
 
     );
