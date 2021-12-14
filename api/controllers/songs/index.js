@@ -6,16 +6,16 @@ const routes = express.Router();
 
 routes.get('/', async (req, res) => {
     try {
-        // const authHeader = req.headers['authorization'];
-        // const token = authHeader && authHeader.split(' ')[1];
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1];
         console.log('entra');
-        // if (token == null) return res.send('No token on request').status(401);
-        // if(!verify) return res.send('Invalid Token').status(403);
+        if (token == null) return res.send('No token on request').status(401);
+        if(!verify) return res.send('Invalid Token').status(403);
         const term  = 'Queen';
         console.log(term);
         console.log(await getResults(term));
         const finalData = await getResults(term);
-        res.send(finalData);
+        res.json(finalData);
     } catch (error) {
         console.log(error);
         res.send({
