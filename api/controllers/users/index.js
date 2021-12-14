@@ -1,8 +1,8 @@
 import express from 'express';
 import { sign } from '../../lib/jwt.js';
 const routes = express.Router();
-import user from '../../models/user.js';
-import {encrypt} from '../../lib/encrypt.js';
+import User from '../../models/user.js';
+import { encrypt, comparePassword } from '../../lib/encrypt.js';
 
 routes.get('/:id',(req,res) => {
     res.send({token:sign(req.params.id)});
@@ -12,12 +12,19 @@ routes.post('/', async (req, res) => {
     try {
         const { email, password } = req.body;
         const passwordEncrypted = await encrypt(password);
-        const newUser = await user.create({
+        const isExistingUser = await User.findOne({where: { email} });
+        if(isExistingUser){
+            if(await comparePassword(password,isExistingUser.getDataValue('password'))){
+                return res.send({token:sign(email)});
+            }else{
+                return res.status(403).send('Password Incorrect');
+            }
+        }
+        const newUser = await User.create({
             email,
             password: passwordEncrypted,
         });
-        console.log(newUser);
-        res.send({token:sign(email)}).status(201);
+        res.status(201).send({token:sign(email)});
     } catch (error) {
         console.log(error);
         res.send({

@@ -10,8 +10,8 @@ const encrypt = async (password, saltRounds ) => {
     }
 }
 
-const comparePassword = async (passwordSaved, password) =>{
-    return await bcrypt.compare(passwordSaved, password);
+const comparePassword = async (password, passwordSaved) =>{
+    return await bcrypt.compare(password, passwordSaved);
 }
 
 export {
