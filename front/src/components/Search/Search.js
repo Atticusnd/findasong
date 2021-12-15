@@ -22,7 +22,7 @@ const Search = () => {
     const searchAPI = async () => {
         try {
             const token = `Bearer ${getToken()}`;
-            const response = await fetch('http://localhost:3000/songs/',{
+            const response = await fetch('https://mysql-beatport.herokuapp.com/songs/',{
                 headers: {
                     'Authorization': token,
                     'Content-Type': 'application/json'
