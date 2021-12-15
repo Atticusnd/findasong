@@ -4,23 +4,6 @@ import { getResults } from '../../services/songs.js';
 
 const routes = express.Router();
 
-routes.get('/', async (req, res) => {
-    try {
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1];
-        if (token == null) return res.send('No token on request').status(401);
-        if(!verify) return res.send('Invalid Token').status(403);
-        const finalData = await getResults(term);
-        res.json(finalData);
-    } catch (error) {
-        console.log(error);
-        res.send({
-            message: 'Error on search API',
-            status: 500,
-        });
-    }
-});
-
 routes.post('/', async (req, res) => {
     try {
         const authHeader = req.headers['authorization'];
