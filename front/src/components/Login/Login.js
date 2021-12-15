@@ -35,20 +35,20 @@ const Login = ({ setToken }) =>{
 }
     
     return(
-        <div className="login-wrapper">
-        <h1>Please Log In</h1>
+        <>
+        
         <GoogleReCaptchaProvider reCaptchaKey='6LdHx5wdAAAAAL4aNiwi-5K9ZJNlr7BXME9Rn8n-'>
-            <form onSubmit={handleSubmit}>
-                <label>
-                <p>Username</p>
-                <input type="email" onChange={e => setUserName(e.target.value)}/>
-                </label>
-                <label>
-                <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)}/>
-                </label>
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+            <form className='formLogin' onSubmit={handleSubmit}>
+                <label for="username">Username</label>
+                <input type="email" placeholder="Email or Phone" onChange={e => setUserName(e.target.value)}/>
+                <label for="password">Password</label>
+                <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)}/>
                 <div>
-                <button type="submit">Submit</button>
+                <button type="submit" className='button-login'>Submit</button>
                 <GoogleReCaptcha
                 onVerify={token => {
                     setcaptchaToken(token)
@@ -57,7 +57,7 @@ const Login = ({ setToken }) =>{
                 </div>
             </form>
         </GoogleReCaptchaProvider>
-        </div>
+        </>
   )
 }
 

@@ -28,6 +28,7 @@ const DataSearchArtistMaped = (data) => {
             artistName: artist.artistName,
             genre: artist.primaryGenreName,
             artistLink: artist.artistLinkUrl,
+            artistId: artist.artistId,
         })
     });
     return newData;
@@ -64,6 +65,7 @@ const DataSearchSongMaped = (data) => {
             previewUrl: song.previewUrl,
             releaseDate: song.releaseDate,
             trackViewUrl: song.trackViewUrl,
+            trackId: song.trackId,
         });
     });
     return newData;

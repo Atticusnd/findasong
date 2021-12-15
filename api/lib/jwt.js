@@ -6,7 +6,6 @@ const expirationTime = '1h';
 const sign = (id) => {
     if(!id) return null
     const newToken = jwt.sign({ id}, privateKey, { expiresIn: expirationTime });
-    console.log(newToken);
     return newToken;
 }
 

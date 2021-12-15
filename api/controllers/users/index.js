@@ -27,10 +27,7 @@ routes.post('/', async (req, res) => {
         res.status(201).send({token:sign(email)});
     } catch (error) {
         console.log(error);
-        res.send({
-            message: 'Error while saving new user',
-            statusCode: 500,
-        });
+        res.status(500).send('Error while saving new user');
     }
 });
 

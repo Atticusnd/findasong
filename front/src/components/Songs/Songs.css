@@ -1,0 +1,21 @@
+b{
+    color: white;
+}
+.song{
+    padding: 10px;
+    margin: 10;
+    background-color: white;
+    width: 500px;
+    height: 100px;
+}
+
+a {
+    color: white;
+    text-decoration: none; /* no underline */
+  }
+.genre {
+    color: lightgray;
+}
+.artistName{
+    font-size: 20pt;
+}
