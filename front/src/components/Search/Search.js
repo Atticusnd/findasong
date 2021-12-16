@@ -18,7 +18,11 @@ const Search = () => {
         localStorage.removeItem('token');
         window.location.reload();
     }
-
+    const onFormSubmit = e => {
+        e.preventDefault();
+        searchAPI();
+    }
+      
     const searchAPI = async () => {
         try {
             const token = `Bearer ${getToken()}`;
@@ -42,13 +46,13 @@ const Search = () => {
     return(
         <>
         <div className='logout'><a href='#' onClick={logout}>Logout</a></div>
-        <form className='search-form'>
+        <form className='search-form' onSubmit={onFormSubmit}>
         <h2>Search</h2>
             <label>
                 <input type="text" onChange={e => setTerm(e.target.value)}/>
             </label>
             <div>
-                <button type="button" className='button-login' onClick={searchAPI}>Submit</button>
+                <button type="submit" className='button-login' onClick={searchAPI}>Search</button>
             </div>
         </form>
         <div class='artists'>
